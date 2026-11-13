@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Cyber Security System </title>
+    <link rel="icon" type="image/png" href="static/title-icon/title-icon.jpg">
+
+    <link rel="icon" type="image/png" href="/static/donors.png"> 
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        body {
+            background-image: url('static/home1.jpg');
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            color: #333; /* Dark text color */
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+        }
+
+        h1 {
+            font-style: oblique;
+            color: #e91f10;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        /* Container to hold the sidebar and content */
+        .container {
+            display: flex;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            width: 200px;
+            background-color: #faf9f9; /* Dark background color for sidebar */
+            padding: 20px;
+            display: none; /* Initially hidden */
+            height: 600px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            color: #f0f0f0; /* White text color for sidebar links */
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background-color: #8f1616;
+        }
+
+        .sidebar a:hover {
+            background-color: #000000; /* Official blue color for sidebar links on hover */
+        }
+
+        /* Content styles */
+
+        /* Menu button styles */
+        #menuBtn {
+            background-color: #2f76e0;
+            color: #fff;
+            padding: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            margin: 10px;
+            width: 80px;
+        }
+
+        /* Blinking warning animation */
+        @keyframes blink {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Circular container for warning message */
+        .warning-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; /* Adjust as needed */
+        }
+
+        .warning {
+            color: red;
+            font-size: 18px;
+            animation: blink 1.5s infinite;
+            border-radius: 50%;
+            background-color: #ffffffd5;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Menu button to toggle sidebar -->
+        <button id="menuBtn" onclick="toggleSidebar()"><i class="fas fa-bars"></i> Menu</button>
+
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <a href="/admin_login"><i class="fas fa-user-shield"></i> Admin</a>
+            <a href="/register"><i class="fas fa-user-plus"></i> Register</a>
+            <a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a>
+            
+        </div>
+    </div><center>
+
+        
+   
+    <h1>Behind every screen is a real person with real feelings. Think before you type.</h1>
+</center>
+
+
+    
+
+    <script>
+        // JavaScript to toggle sidebar visibility
+        function toggleSidebar() {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.style.display = (sidebar.style.display === 'none' || sidebar.style.display === '') ? 'block' : 'none';
+        }
+    </script>
+</body>
+
+</html>

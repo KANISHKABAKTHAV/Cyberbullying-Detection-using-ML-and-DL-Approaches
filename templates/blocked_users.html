@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blocked Users</title>
+    <link rel="icon" type="image/png" href="static/title-icon/title-icon.jpg">
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f2f2f2; }
+        table { width: 80%; margin: 30px auto; border-collapse: collapse; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        th, td { padding: 12px; text-align: center; border-bottom: 1px solid #ddd; }
+        th { background: #ff4d4d; color: white; }
+        tr:hover { background-color: #ffcccc; }
+        h2 { text-align: center; color: #ff4d4d; }
+        a { display: block; text-align: center; margin: 20px; color: #007bff; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <h2>Blocked Users</h2>
+    <table>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+        </tr>
+        {% for user in blocked %}
+        <tr>
+            <td>{{ user[0] }}</td>
+            <td>{{ user[1] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{{ url_for('admin_dash1') }}">← Back to Admin Dashboard</a>
+</body>
+</html>

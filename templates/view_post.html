@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="icon" type="image/png" href="static/title-icon/title-icon.jpg">
+
+    <style>
+        /* General Styling */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+* {
+
+  
+  font-family: "Poppins", sans-serif;
+}
+body {
+    background-image: url('static/post.jpg');
+    background-position: center;
+    background-repeat: repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+}
+
+/* Feed Container */
+.feed {
+    width: 500px;
+    margin-top: 20px;
+}
+
+/* Post Card */
+.post-card {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Post Header (Profile + Name + Timestamp) */
+.post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* Username & Timestamp */
+/* Username & Timestamp */
+.username {
+    font-weight: bold;
+    color: #1da1f2;
+    font-size: 20px; /* Increased from 14px to 16px for better visibility */
+}
+
+.timestamp {
+    color: #657786;
+    font-size: 13px; /* Increased from 12px to 13px for better readability */
+    margin-left: 5px;
+}
+
+/* Post Content */
+.post-content {
+    font-size: 20px; /* Increased from 15px to 17px for better visibility */
+    color: #14171a;
+    margin-bottom: 10px;
+    line-height: 1.5; /* Added line height for better spacing */
+}
+
+/* Post Card */
+.post-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px; /* Increased padding for a more spacious look */
+    margin-bottom: 15px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow */
+}
+
+
+/* Post Image */
+.post-image {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+/* No Posts Message */
+.no-posts {
+    text-align: center;
+    font-size: 16px;
+    color: #657786;
+}
+a{
+            position: absolute;
+            top:10px;
+            left:10px;
+            background-color: #ffffff;
+            padding: 8px;
+            text-decoration: None;
+            color: black;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    <a href="{{ url_for('dashboard') }}">Back</a>
+
+    <h2 class="header">All Posts</h2>
+    <div class="feed">
+        {% for post in posts %}
+        <div class="post-card">
+            <div class="post-header">
+                <img class="profile-pic" src="{{ url_for('static', filename='profile.png') }}" alt="Profile">
+                <div>
+                    <strong class="username">{{ post['username'] }}</strong>
+                    <span class="timestamp">{{ post['timestamp'] }}</span>
+                </div>
+            </div>
+            <p class="post-content">{{ post['content'] }}</p>
+            {% if post['image'] %}
+                <img src="{{ url_for('static', filename='uploads/' + post['image'].replace('\\', '/').split('/')[-1]) }}" 
+                    alt="Post Image" width="300"><br>
+            {% endif %}
+
+        </div>
+        {% else %}
+        <p class="no-posts">No posts to display.</p>
+        {% endfor %}
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="icon" type="image/png" href="static/title-icon/title-icon.jpg">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+        * {
+            font-family: "Poppins", sans-serif;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('static/dashboard.jpg');
+            background-position: center;
+            background-repeat: repeat;
+            background-size: cover;   
+        }
+        .header {
+            background: #007bff;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .header h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+        .header .buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .header a {
+            background: white;
+            color: #007bff;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s ease-in-out;
+        }
+        .header a:hover {
+            background: #0056b3;
+            color: white;
+        }
+        .container {
+            padding: 20px;
+            text-align: center;
+        }
+        .feed {
+            width: 500px;
+            margin-top: 20px;
+        }
+        .post-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            justify-content: space-between;
+        }
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .username {
+            font-weight: bold;
+            color: #1da1f2;
+            font-size: 20px;
+        }
+        .timestamp {
+            color: #657786;
+            font-size: 13px;
+            margin-left: 5px;
+        }
+        .post-content {
+            font-size: 20px;
+            color: #14171a;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        .post-image {
+            width: 50%;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+        .no-posts {
+            text-align: center;
+            font-size: 16px;
+            color: #657786;
+        }
+        .delete-button {
+            background-color: red;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .delete-button:hover {
+            background-color: darkred;
+        }
+        .dots {
+            cursor: pointer;
+            font-size: 20px;
+            color: #657786;
+        }
+        .dots:hover {
+            color: #007bff;
+        }
+        .delete-option {
+            display: none;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            background-color: white;
+            padding: 10px;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
+            border-radius: 5px;
+            z-index: 10;
+        }
+        .delete-option button {
+            background-color: red;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .delete-option button:hover {
+            background-color: darkred;
+        }
+        .three-dots-button {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: white;
+            box-shadow: 0px 2px 8px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            z-index: 10;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-delete {
+            background: red;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            width: 100%;
+            text-align: left;
+            border-radius: 0 0 5px 5px;
+            cursor: pointer;
+        }
+
+        .dropdown-delete:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Welcome, {{ session['username'] }}!</h2>
+        <div class="buttons">
+            <a href="{{ url_for('logout') }}">Logout</a>
+            <a href="{{ url_for('update_profile') }}">Update Profile</a>
+            <a href="{{ url_for('view_profile') }}">View Profile</a>
+            <a href="{{ url_for('predict') }}">Post</a>
+            {% if warning_exists %}
+                <a href="/warning_message" style="color: red; font-weight: bold;">Warning</a>
+            {% else %}
+                <a href="/warning_message">Warning</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <center>
+        <div class="feed">
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <ul style="list-style-type:none;">
+                    {% for category, message in messages %}
+                        <li style="color: {{ 'green' if category == 'success' else 'red' }}">{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+        
+            {% for post in posts %}
+            <div class="post-card">
+                <div class="post-header">
+                    <div style="display: flex; align-items: center;">
+                        <img class="profile-pic" src="{{ url_for('static', filename='profile.png') }}" alt="Profile">
+                        <div>
+                            <strong class="username">{{ post['username'] }}</strong>
+                            <span class="timestamp">{{ post['timestamp'] }}</span>
+                        </div>
+                    </div>
+
+                    {% if post['username'] == session['username'] %}
+                    <div class="dropdown">
+                        <button class="three-dots-button">⋮</button>
+                        <div class="dropdown-content">
+                            <form method="GET" action="{{ url_for('edit_post', post_id=post['id']) }}">
+                                <button type="submit" class="dropdown-delete" style="background: orange;">Edit</button>
+                            </form>
+                            <form method="POST" action="{{ url_for('delete_post', post_id=post['id']) }}">
+                                <button type="submit" class="dropdown-delete">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                </div>
+
+                <p class="post-content">{{ post['content'] }}</p>
+                {% if post['image'] %}
+                    <img class="post-image" src="{{ url_for('static', filename='uploads/' + post['image'].replace('\\', '/').split('/')[-1]) }}" alt="Post Image">
+                {% endif %}
+            </div>
+            {% else %}
+            <p class="no-posts">No posts to display.</p>
+            {% endfor %}
+        </div>
+    </center>
+   
+</body>
+</html>

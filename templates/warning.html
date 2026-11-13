@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warning Messages</title>
+    <link rel="icon" type="image/png" href="static/title-icon/title-icon.jpg">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url("static/message.jpg") no-repeat center center fixed;
+            background-size: cover;
+        }
+        
+        .container {
+            max-width: 90%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #d9534f;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #ff4d4d;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ffcccc;
+            transition: 0.3s ease-in-out;
+        }
+
+        .warning-message {
+            color: red;
+            font-weight: bold;
+        }
+
+        .warning-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            text-decoration: none;
+            background-color: #ff4d4d;
+            color: white;
+            border-radius: 5px;
+            transition: 0.3s ease-in-out;
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+            background-color: #d43f3a;
+        }
+
+        @media screen and (max-width: 768px) {
+            table {
+                font-size: 14px;
+            }
+            
+            .warning-image {
+                width: 80px;
+                height: 80px;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Your Warnings</h2>
+
+        {% if warnings %}
+        <table>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Content</th>
+                <th>Image</th>
+                <th>Detection</th>
+                <th>Timestamp</th>
+                <th>Warning Message</th>
+            </tr>
+            {% for warning in warnings %}
+            <tr>
+                <td>{{ warning[0] }}</td>  <!-- Username -->
+                <td>{{ warning[1] }}</td>  <!-- Email -->
+                <td>{{ warning[2] }}</td>  <!-- Content -->
+                <td>
+                    <img src="{{ url_for('static', filename='uploads/' + warning[3].split('uploads/')[-1].replace('\\', '/')) }}" class="warning-image" alt="Image">
+                </td>
+                <td>{{ warning[4] }}</td>  <!-- Detection -->
+                <td>{{ warning[5] }}</td>  <!-- Timestamp -->
+                <td class="warning-message">{{ warning[6] }}</td>  <!-- Warning Message -->
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p>No warnings found.</p>
+        {% endif %}
+
+        <a href="{{ url_for('dashboard') }}" class="back-btn">Back to Dashboard</a>
+    </div>
+
+</body>
+</html>

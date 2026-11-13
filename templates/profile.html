@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="icon" type="image/png" href="static/title-icon/title-icon.jpg">
+
+    <style>
+         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+* {
+
+  
+  font-family: "Poppins", sans-serif;
+}
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('static/profile.avif');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;   
+            height: 100vh;    
+         }
+        .header {
+            background: #007bff;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .header h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+        .header .buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .header a {
+            background: white;
+            color: #007bff;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s ease-in-out;
+        }
+        .header a:hover {
+            background: #0056b3;
+            color: white;
+        }
+        .container {
+            padding: 20px;
+            text-align: center;
+        }
+        .form-container {
+            margin-top: 20px;
+        }
+        .form-container input[type="file"] {
+            margin-top: 10px;
+        }
+        .form-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 20px auto;
+            text-align: left;
+        }
+
+        .form-container input[type="text"],
+        .form-container input[type="email"],
+        .form-container input[type="tel"],
+        .form-container input[type="file"] {
+            width: 90%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-container input[type="file"] {
+            background: #fff;
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .form-container label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .form-container button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+        }
+
+        .form-container button:hover {
+            background: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Welcome, {{ session['username'] }}!</h2>
+        <div class="buttons">
+			<a href="{{ url_for('dashboard') }}">Back</a>
+
+        </div>
+		 
+    </div>
+
+    <div class="container">
+        <p style="color: red;">This is your dashboard. Use the options below to update your profile.</p>
+        <div class="form-container">
+            <form method="POST" enctype="multipart/form-data">
+                <input type="text" name="name" value="{{ session['name'] }}" placeholder="Your Name" required><br>
+                <input type="email" name="email" value="{{ session['email'] }}" placeholder="Your Email" required><br>
+                <input type="tel" name="phone" value="{{ session['phone'] }}" placeholder="Your Phone Number"><br>
+                <label for="profile_image">Upload Profile Image:</label>
+                <input type="file" name="profile_image" id="profile_image" accept="image/*"><br><br>
+                <button type="submit">Update Profile</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

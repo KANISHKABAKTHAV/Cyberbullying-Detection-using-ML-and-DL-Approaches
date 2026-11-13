@@ -1,0 +1,20 @@
+
+# Machine learning checkpoints
+results/checkpoint-*/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+.venv/
+
+# Environment variables
+.env
+
+# IDE settings
+.vscode/
+
+# Log files
+*.log

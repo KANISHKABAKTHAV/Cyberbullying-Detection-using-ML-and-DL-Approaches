@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Profile</title>
+    <link rel="icon" type="image/png" href="static/title-icon/title-icon.jpg">
+
+    <style>
+        /* Importing Twitter-Like Font */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+        * {
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: url('static/profile.avif');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+   
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            text-decoration: none;
+            background-color: #1da1f2;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: #0c85d0;
+        }
+
+        /* Profile Container */
+        .profile-container {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 350px;
+            transition: transform 0.3s;
+        }
+
+        .profile-container:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Profile Image */
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        /* Profile Info */
+        h3 {
+            font-size: 22px;
+            color: #14171a;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        p {
+            font-size: 20px;
+            color: #000000;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        /* Buttons */
+        .btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 12px;
+            margin-top: 15px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 50px;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .update-btn {
+            background-color: #1da1f2;
+            color: white;
+        }
+
+        .update-btn:hover {
+            background-color: #0c85d0;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Back to Dashboard Button -->
+    <a href="{{ url_for('dashboard') }}" class="back-btn">← Back</a>
+
+    <!-- Profile Card -->
+    <div class="profile-container">
+        {% if profile_image %}
+            <img src="{{ url_for('static', filename=profile_image[7:]) }}" 
+                alt="Profile Image" class="profile-image">
+        {% else %}
+            <p>No profile image available.</p>
+        {% endif %}
+
+        <h3>{{ user_info.name }}</h3>
+        <p><strong>Email:</strong> {{ user_info.email }}</p>
+        <p><strong>Phone:</strong> {{ user_info.phone }}</p>
+
+        <!-- Update Profile Button -->
+        <a href="{{ url_for('update_profile') }}" class="btn update-btn">Update Profile</a>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cyberbullying Detection</title>
+    <link rel="icon" type="image/png" href="static/title-icon/title-icon.jpg">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url("static/text.jpg") no-repeat center center fixed;
+            background-size: cover;
+        }
+        .top-left-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        .top-left-button a {
+            text-decoration: none;
+            background-color: #0066cc;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+        .top-left-button a:hover {
+            background-color: #0066cc;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            width: 400px;
+            margin: 100px auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+        textarea, input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #0066cc;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #004c99;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top-left dashboard button -->
+    <div class="top-left-button">
+        <a href="{{ url_for('dashboard') }}">Logout</a>
+    </div>
+
+    <div class="container">
+        <h2>Upload Post and Comment</h2>
+        <form action="/predict" method="POST" enctype="multipart/form-data">
+            <label>Select an image:</label><br>
+            <input type="file" name="image" required><br>
+
+            <label>Enter your comment:</label><br>
+            <textarea name="comment" rows="5" required></textarea><br>
+
+            <input type="submit" value="Detect Cyberbullying">
+        </form>
+    </div>
+</body>
+</html>
